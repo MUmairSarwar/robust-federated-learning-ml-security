@@ -1,0 +1,12 @@
+experiment_name: backdoor_fedavg
+seed: 42
+num_clients: 10
+rounds: 10
+local_epochs: 1
+aggregation: fedavg
+attack: backdoor
+malicious_client_fraction: 0.3
+poison_fraction: 0.5
+backdoor_target: 0
+trigger_size: 3
+

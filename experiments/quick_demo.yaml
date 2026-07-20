@@ -1,0 +1,13 @@
+experiment_name: quick_demo
+seed: 42
+num_clients: 3
+rounds: 2
+local_epochs: 1
+batch_size: 32
+aggregation: fuzzy
+attack: label_poisoning
+malicious_client_fraction: 0.34
+poison_fraction: 0.5
+max_train_samples: 600
+max_test_samples: 300
+

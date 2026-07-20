@@ -1,0 +1,9 @@
+experiment_name: label_poisoning_median
+seed: 42
+num_clients: 10
+rounds: 10
+aggregation: median
+attack: label_poisoning
+malicious_client_fraction: 0.3
+poison_fraction: 0.5
+

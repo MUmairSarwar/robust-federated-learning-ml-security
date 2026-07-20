@@ -1,0 +1,12 @@
+experiment_name: label_poisoning_fedavg
+seed: 42
+num_clients: 10
+rounds: 10
+local_epochs: 1
+aggregation: fedavg
+attack: label_poisoning
+malicious_client_fraction: 0.3
+poison_fraction: 0.5
+source_label: 1
+target_label: 7
+
