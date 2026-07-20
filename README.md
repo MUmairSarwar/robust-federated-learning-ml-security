@@ -182,5 +182,5 @@ MNIST is not representative of modern deployed workloads. The simulation assumes
 
 ## Author and license
 
-Muhammad Umair Sarwar — incoming M.Sc. Mathematics student, specialization in Mathematics in Data Science, TU Darmstadt. Licensed under the MIT License.
+Muhammad Umair Sarwar —  M.Sc. Mathematics student, specialization in Mathematics in Data Science, TU Darmstadt. Licensed under the MIT License.
 
