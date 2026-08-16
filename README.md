@@ -1,5 +1,7 @@
 # Robust Federated Learning Under Poisoning and Backdoor Attacks
 
+[![tests](https://github.com/MUmairSarwar/robust-federated-learning-ml-security/actions/workflows/tests.yml/badge.svg)](https://github.com/MUmairSarwar/robust-federated-learning-ml-security/actions/workflows/tests.yml)
+
 An educational PyTorch study of federated learning security on MNIST, including controlled label poisoning, a corner-trigger backdoor, robust aggregation baselines, and an experimental fuzzy client-reliability weighting method.
 
 > **Status:** implementation complete; benchmark values are intentionally `TBD` until the experiments are run. No numerical results are fabricated.
@@ -132,9 +134,7 @@ Successful runs generate `accuracy_vs_round.png`, `loss_vs_round.png`, `attack_s
 ├── docs/
 │   ├── project_report.md
 │   ├── methodology.md
-│   ├── experiment_log.md
-│   ├── linkedin_summary.md
-│   └── github_from_zero.md
+│   └── experiment_log.md
 ├── tests/test_aggregation.py
 └── src/
     ├── main.py
@@ -153,29 +153,6 @@ Successful runs generate `accuracy_vs_round.png`, `loss_vs_round.png`, `attack_s
 
 Python, PyTorch, Torchvision, NumPy, pandas, scikit-learn, Matplotlib, Seaborn, PyYAML, federated learning, robust statistics, and adversarial ML evaluation.
 
-## CV-ready entry
-
-**Robust Federated Learning Under Poisoning and Backdoor Attacks**  
-2026 | Python, PyTorch, Torchvision, NumPy, Federated Learning, ML Security
-
-- Built a PyTorch simulation of federated learning on MNIST with multiple clients and server-side aggregation.
-- Implemented controlled label-poisoning and backdoor-attack scenarios to evaluate vulnerabilities in collaborative machine learning.
-- Compared FedAvg, coordinate-wise median, trimmed mean, and fuzzy client-reliability aggregation as defenses against malicious clients.
-- Designed a reliability-scoring extension inspired by uncertainty modelling and matrix-game research from an M.Phil. thesis.
-- Reported clean accuracy, attack success rate, client-update statistics, and defense-comparison results.
-
-## LinkedIn draft
-
-I built a PyTorch research project to explore a practical question: how robust is federated learning when some clients submit poisoned updates?
-
-Using a controlled MNIST simulation, I implemented label-poisoning and backdoor scenarios and compared FedAvg, coordinate-wise median, trimmed mean, and an experimental fuzzy client-reliability method. The custom method connects update statistics with my mathematics research background in uncertainty modelling and matrix games.
-
-The project separates clean accuracy from attack success, saves reproducible configurations and per-client diagnostics, and clearly documents limitations. It is a defensive educational study—not a production security guarantee.
-
-Repository: [add GitHub URL]
-
-`#FederatedLearning #MachineLearningSecurity #PyTorch #RobustML #AdversarialML #DataScience`
-
 ## Limitations and future work
 
 MNIST is not representative of modern deployed workloads. The simulation assumes synchronous full participation, a fixed malicious set, and no communication failures. The fuzzy center can be shifted by attackers and its evidence design needs ablations. Stronger follow-up work should add Dirichlet non-IID partitions, partial participation, multiple seeds and confidence intervals, adaptive attacks, independent server validation, published robust baselines, privacy mechanisms, and larger public research datasets.
@@ -183,4 +160,3 @@ MNIST is not representative of modern deployed workloads. The simulation assumes
 ## Author and license
 
 Muhammad Umair Sarwar —  M.Sc. Mathematics student, specialization in Mathematics in Data Science, TU Darmstadt. Licensed under the MIT License.
-
