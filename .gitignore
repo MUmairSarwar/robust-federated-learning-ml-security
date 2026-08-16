@@ -8,3 +8,4 @@ results/figures/*.png
 results/tables/*.csv
 !results/figures/.gitkeep
 !results/tables/.gitkeep
+docs/architecture.png
