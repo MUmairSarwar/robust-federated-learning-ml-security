@@ -6,6 +6,8 @@ An educational PyTorch study of federated learning security on MNIST, including 
 
 > **Status:** implementation complete; benchmark values are intentionally `TBD` until the experiments are run. No numerical results are fabricated.
 
+![Experiment architecture](docs/architecture.svg)
+
 ## Motivation
 
 Federated learning lets participants train a shared model without pooling raw data, but malicious or corrupted clients may still manipulate model updates. This repository makes that problem inspectable in a small, reproducible simulation and compares several server-side aggregation strategies.
