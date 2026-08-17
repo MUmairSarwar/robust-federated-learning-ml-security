@@ -1,0 +1,111 @@
+name: multi-seed-benchmark
+
+on:
+  push:
+    paths:
+      - '.github/workflows/benchmark.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run three-seed benchmark suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p results/benchmarks/tables .benchmark_configs
+          CONFIGS=(
+            baseline_fedavg.yaml
+            label_poisoning_fedavg.yaml
+            label_poisoning_median.yaml
+            backdoor_fedavg.yaml
+            backdoor_trimmed_mean.yaml
+            fuzzy_reliability_defense.yaml
+          )
+          for cfg in "${CONFIGS[@]}"; do
+            for seed in 42 43 44; do
+              python - "$cfg" "$seed" <<'PY'
+          import sys, yaml
+          from pathlib import Path
+          source = Path('experiments') / sys.argv[1]
+          seed = int(sys.argv[2])
+          data = yaml.safe_load(source.read_text())
+          base = data['experiment_name']
+          data['seed'] = seed
+          data['experiment_name'] = f'{base}_seed{seed}'
+          data['output_dir'] = 'results/benchmarks'
+          out = Path('.benchmark_configs') / f'{base}_seed{seed}.yaml'
+          out.write_text(yaml.safe_dump(data, sort_keys=False))
+          print(out)
+          PY
+              base=$(python - "$cfg" <<'PY'
+          import sys, yaml
+          from pathlib import Path
+          print(yaml.safe_load((Path('experiments')/sys.argv[1]).read_text())['experiment_name'])
+          PY
+          )
+              python src/main.py --config ".benchmark_configs/${base}_seed${seed}.yaml"
+            done
+          done
+      - name: Aggregate terminal-round metrics
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd
+          import re
+          rows=[]
+          for path in sorted(Path('results/benchmarks/tables').glob('*_seed*_metrics.csv')):
+              m=re.match(r'(.+)_seed(\d+)_metrics\.csv$', path.name)
+              if not m:
+                  continue
+              base, seed=m.group(1), int(m.group(2))
+              df=pd.read_csv(path)
+              last=df.iloc[-1]
+              rows.append({'experiment':base,'seed':seed,'clean_accuracy':float(last.clean_accuracy),'attack_success_rate':float(last.attack_success_rate),'test_loss':float(last.test_loss)})
+          raw=pd.DataFrame(rows)
+          raw.to_csv('results/benchmark_runs.csv', index=False)
+          summary=(raw.groupby('experiment').agg(
+              runs=('seed','count'),
+              clean_accuracy_mean=('clean_accuracy','mean'),
+              clean_accuracy_std=('clean_accuracy','std'),
+              attack_success_rate_mean=('attack_success_rate','mean'),
+              attack_success_rate_std=('attack_success_rate','std'),
+              test_loss_mean=('test_loss','mean'),
+              test_loss_std=('test_loss','std'),
+          ).reset_index())
+          summary.to_csv('results/benchmark_summary.csv', index=False)
+          print(summary.to_string(index=False))
+          PY
+      - name: Commit measured benchmark tables
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/benchmark_runs.csv results/benchmark_summary.csv results/benchmarks/tables/
+          git diff --cached --quiet && exit 0
+          git commit -m 'Add measured multi-seed federated learning benchmarks'
+          git push
+      - name: Upload benchmark artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: federated-learning-benchmark-results
+          path: |
+            results/benchmark_runs.csv
+            results/benchmark_summary.csv
+            results/benchmarks/tables/
