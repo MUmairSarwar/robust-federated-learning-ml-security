@@ -159,6 +159,13 @@ Python, PyTorch, Torchvision, NumPy, pandas, scikit-learn, Matplotlib, Seaborn, 
 
 MNIST is not representative of modern deployed workloads. The simulation assumes synchronous full participation, a fixed malicious set, and no communication failures. The fuzzy center can be shifted by attackers and its evidence design needs ablations. Stronger follow-up work should add Dirichlet non-IID partitions, partial participation, multiple seeds and confidence intervals, adaptive attacks, independent server validation, published robust baselines, privacy mechanisms, and larger public research datasets.
 
+## Other selected projects
+
+- [Rhine-Main Heat Risk Forecasting](https://github.com/MUmairSarwar/germany-heat-risk-forecasting)
+- [Retail Customer & Operations Analytics](https://github.com/MUmairSarwar/retail-customer-analytics)
+- [Telecom Customer Churn Prediction](https://github.com/MUmairSarwar/customer-churn-prediction)
+- [Strategic Classification](https://github.com/MUmairSarwar/strategic-classification-toy)
+
 ## Author and license
 
-Muhammad Umair Sarwar —  M.Sc. Mathematics student, specialization in Mathematics in Data Science, TU Darmstadt. Licensed under the MIT License.
+Muhammad Umair Sarwar - M.Sc. Mathematics student (Mathematics in Data Science), TU Darmstadt. Licensed under the MIT License.
