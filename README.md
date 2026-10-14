@@ -6,8 +6,6 @@
 
 An educational PyTorch study of federated-learning security on MNIST, including controlled label poisoning, a corner-trigger backdoor, robust aggregation baselines and an experimental fuzzy client-reliability weighting method.
 
-> **Status:** implementation complete; benchmark values remain `TBD` until the experiments are run. No numerical results are fabricated.
-
 ![Experiment architecture](docs/architecture.svg)
 
 ## Project focus
@@ -50,16 +48,18 @@ python src/main.py --config experiments/fuzzy_reliability_defense.yaml
 
 ## Results
 
-For a credible comparison, benchmark configurations should be repeated across multiple seeds and reported with appropriate variability. The repository intentionally leaves the main comparison values as `TBD` until measured runs are available.
+| Defense | Attack | Clean accuracy (mean ± std) | Attack success rate (mean ± std) |
+|---|---|---:|---:|
+| FedAvg | None | 97.66% ± 0.15 | 0.00% ± 0.00 |
+| FedAvg | Label poisoning | 97.61% ± 0.09 | 0.15% ± 0.13 |
+| Median | Label poisoning | 97.61% ± 0.05 | 0.03% ± 0.05 |
+| FedAvg | Backdoor | 97.55% ± 0.13 | 98.99% ± 0.26 |
+| Trimmed mean | Backdoor | 97.57% ± 0.12 | 92.65% ± 2.80 |
+| Fuzzy reliability | Backdoor | 97.68% ± 0.12 | 91.97% ± 3.52 |
 
-| Defense | Attack | Clean accuracy | Attack success rate | Runtime |
-|---|---|---:|---:|---:|
-| FedAvg | None | TBD | TBD | TBD |
-| FedAvg | Label poisoning | TBD | TBD | TBD |
-| FedAvg | Backdoor | TBD | TBD | TBD |
-| Median | Label poisoning | TBD | TBD | TBD |
-| Trimmed mean | Backdoor | TBD | TBD | TBD |
-| Fuzzy reliability | Backdoor | TBD | TBD | TBD |
+Results are means over 3 seeds (42, 43, 44) on MNIST; per-run values are in results/benchmark_runs.csv.
+
+All methods keep about 97.6% clean accuracy. In this setup, label poisoning barely affects the model. The backdoor succeeds about 99% of the time under FedAvg. Trimmed-mean and fuzzy-reliability aggregation reduce this only to about 92%, so these defences are not sufficient against this backdoor.
 
 ## Technologies
 
@@ -67,7 +67,7 @@ Python, PyTorch, NumPy, pandas, scikit-learn, pytest, federated learning, robust
 
 ## Limitations
 
-MNIST is a toy benchmark and is not representative of modern deployed workloads. The simulation assumes synchronous participation and a controlled malicious-client setup. Stronger future work could include larger public datasets, multiple seeds, partial participation, additional robust baselines and adaptive attacks.
+MNIST is a toy benchmark and is not representative of modern deployed workloads. The simulation assumes synchronous participation and a controlled malicious-client setup. Stronger future work could include larger public datasets, more seeds, partial participation, additional robust baselines and adaptive attacks.
 
 ## Other selected projects
 
@@ -79,5 +79,5 @@ MNIST is a toy benchmark and is not representative of modern deployed workloads.
 ## Author
 
 **Muhammad Umair Sarwar**  
-Incoming M.Sc. Mathematics – Mathematics in Data Science student at TU Darmstadt, starting WS 2026/27.  
-Available from 1 September 2026 for HiWi / Student Research Assistant roles, up to 20 hours/week.
+M.Sc. Mathematics student (Mathematics in Data Science), TU Darmstadt.  
+Open to PhD positions and full-time roles.
