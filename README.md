@@ -1,6 +1,6 @@
 # Robust Federated Learning Under Poisoning and Backdoor Attacks
 
-**Project period: August 2025 – December 2025**
+**Project period: August 2025 – December 2025** (developed locally; published on GitHub in July 2026)
 
 [![tests](https://github.com/MUmairSarwar/robust-federated-learning-ml-security/actions/workflows/tests.yml/badge.svg)](https://github.com/MUmairSarwar/robust-federated-learning-ml-security/actions/workflows/tests.yml)
 
@@ -71,13 +71,14 @@ MNIST is a toy benchmark and is not representative of modern deployed workloads.
 
 ## Other selected projects
 
+- [Fair Multi-Agent Battery Control (MARL)](https://github.com/MUmairSarwar/fair-multiagent-battery-control)
 - [Rhine-Main Heat Risk Forecasting](https://github.com/MUmairSarwar/germany-heat-risk-forecasting)
-- [Strategic Classification](https://github.com/MUmairSarwar/strategic-classification-toy)
+- [German Energy Operations Analytics](https://github.com/MUmairSarwar/german-energy-operations)
 - [Retail Customer & Operations Analytics](https://github.com/MUmairSarwar/retail-customer-analytics)
-- [Telecom Customer Churn Prediction](https://github.com/MUmairSarwar/customer-churn-prediction)
+- [Strategic Classification](https://github.com/MUmairSarwar/strategic-classification)
 
 ## Author
 
 **Muhammad Umair Sarwar**  
 M.Sc. Mathematics student (Mathematics in Data Science), TU Darmstadt.  
-Open to PhD positions and full-time roles.
+Open to Werkstudent and data science roles in Germany, and to funded PhD positions.
