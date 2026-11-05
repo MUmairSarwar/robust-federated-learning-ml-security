@@ -8,6 +8,17 @@ An educational PyTorch study of federated-learning security on MNIST, including 
 
 ![Experiment architecture](docs/architecture.svg)
 
+
+## Data period and version history
+
+The experiments use the established MNIST handwritten-digit benchmark, not observations collected in 2026.
+
+- **July 2026:** the initial project was committed to GitHub.
+- **August 2026:** data loading, client-partition tests, reproducibility checks and a multi-seed benchmark workflow were added.
+- **October 2026:** the main README benchmark table and interpretation were updated.
+
+The original development period above is separate from these repository milestones. An update date records when material was committed; it is not, by itself, an experiment execution date.
+
 ## Project focus
 
 This project studies how malicious or corrupted clients can influence federated learning and compares server-side aggregation strategies under heterogeneous data, poisoning and backdoor scenarios.
