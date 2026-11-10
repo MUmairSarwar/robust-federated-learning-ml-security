@@ -24,34 +24,28 @@ FedAvg is the reference method. Coordinate-wise median suppresses coordinate out
 
 ## Experimental setup and metrics
 
-YAML files define seeds, clients, rounds, attacks, and defenses. Reported metrics are clean test loss, clean accuracy, local training loss, backdoor ASR or label source-to-target rate, client update diagnostics, and runtime notes. Results must come from actual runs.
+YAML files define seeds, clients, rounds, attacks, and defenses. Reported metrics are clean test loss, clean accuracy, local training loss, backdoor ASR or label source-to-target rate, client update diagnostics, and runtime notes.
 
 ## Results
 
-| Defense | Attack | Clean accuracy | Attack success rate | Runtime |
-|---|---|---:|---:|---:|
-| FedAvg | None | TBD | TBD | TBD |
-| FedAvg | Label poisoning | TBD | TBD | TBD |
-| Median | Label poisoning | TBD | TBD | TBD |
-| Trimmed mean | Backdoor | TBD | TBD | TBD |
-| Fuzzy reliability | Backdoor | TBD | TBD | TBD |
+Means ± standard deviation over seeds 42, 43 and 44. Per-run values are in `results/benchmark_runs.csv`.
+
+| Defense | Attack | Clean accuracy | Attack success rate |
+|---|---|---:|---:|
+| FedAvg | None | 97.66% ± 0.15 | 0.00% ± 0.00 |
+| FedAvg | Label poisoning | 97.61% ± 0.09 | 0.15% ± 0.13 |
+| Median | Label poisoning | 97.61% ± 0.05 | 0.03% ± 0.05 |
+| FedAvg | Backdoor | 97.55% ± 0.13 | 98.99% ± 0.26 |
+| Trimmed mean | Backdoor | 97.57% ± 0.12 | 92.65% ± 2.80 |
+| Fuzzy reliability | Backdoor | 97.68% ± 0.12 | 91.97% ± 3.52 |
+
+Clean accuracy stays near 97.6% everywhere. Label poisoning has almost no effect in this setup. The backdoor works about 99% of the time under FedAvg, and trimmed mean and the fuzzy rule only bring that down to about 92%.
 
 ## Discussion, limitations, and future work
 
-Median and trimmed mean are coordinate-wise rules and can discard cross-parameter structure. The fuzzy method compares clients with the mean, which attackers may themselves shift; its uncertainty degree is zero with the current complementary construction and is retained explicitly so richer intuitionistic evidence can be studied later. MNIST, synchronous participation, fixed attackers, and a simple split limit external validity. Future work includes Dirichlet non-IID partitions, partial participation, adaptive attacks, independent validation signals, confidence intervals, stronger baselines, and larger—but still ethical—public benchmarks.
+Median and trimmed mean are coordinate-wise rules and can discard cross-parameter structure. The fuzzy method compares clients with the mean, which attackers may themselves shift; its uncertainty degree is zero with the current complementary construction and is retained explicitly so richer intuitionistic evidence can be studied later. MNIST, synchronous participation, fixed attackers, and a simple split limit external validity. Future work includes Dirichlet non-IID partitions, partial participation, adaptive attacks, independent validation signals, confidence intervals, stronger baselines, and larger public benchmarks.
 
 ## Ethical statement
 
 All attacks are contained simulations on MNIST for defensive research and education. The code must not be represented as production protection or used to target real systems, users, biometric data, finance, or medicine.
-
-## CV-ready entry
-
-**Robust Federated Learning Under Poisoning and Backdoor Attacks**  
-2026 | Python, PyTorch, Torchvision, NumPy, Federated Learning, ML Security
-
-- Built a PyTorch simulation of federated learning on MNIST with multiple clients and server-side aggregation.
-- Implemented controlled label-poisoning and backdoor scenarios for defensive evaluation.
-- Compared FedAvg, coordinate-wise median, trimmed mean, and fuzzy client-reliability aggregation.
-- Designed an experimental score inspired by uncertainty modelling and matrix-game research from an M.Phil. thesis.
-- Reported clean accuracy, attack success rate, client-update statistics, and defense comparisons.
 

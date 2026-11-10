@@ -17,7 +17,7 @@ The experiments use the established MNIST handwritten-digit benchmark, not obser
 - **August 2026:** data loading, client-partition tests, reproducibility checks and a multi-seed benchmark workflow were added.
 - **October 2026:** the main README benchmark table and interpretation were updated.
 
-The original development period above is separate from these repository milestones. An update date records when material was committed; it is not, by itself, an experiment execution date.
+I developed the project locally from August to December 2025; the dates above are when things were committed to GitHub.
 
 ## Project focus
 

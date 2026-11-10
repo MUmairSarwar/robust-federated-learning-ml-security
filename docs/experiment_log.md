@@ -1,10 +1,7 @@
-# Experiment Log
+# Experiment log
 
-Record every run so comparisons remain auditable.
+| Date | Commit | Configs | Device | Output | Notes |
+|---|---|---|---|---|---|
+| 2026-08-17 | `17d4e9b` | the six configs in `.github/workflows/benchmark.yml`, seeds 42, 43, 44 | GitHub Actions, `ubuntu-latest` (CPU) | `results/benchmark_runs.csv` | 18 runs. Means and standard deviations are in the README. |
 
-| Date | Commit | Config | Device | Runtime | Output | Notes |
-|---|---|---|---|---:|---|---|
-| TBD | TBD | `experiments/baseline_fedavg.yaml` | TBD | TBD | TBD | Not yet run |
-
-Before comparing defenses, use the same seed, data split, attack settings, rounds, model, and client training parameters. Repeat with several seeds and report mean and standard deviation for stronger evidence.
-
+When comparing defences, keep the seed, data split, attack settings, number of rounds, model and client training settings the same, and repeat over several seeds.

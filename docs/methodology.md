@@ -6,7 +6,7 @@ MNIST is downloaded through `torchvision`. With IID partitioning, a seeded permu
 
 ## Local and global learning
 
-At each communication round, every client copies the current CNN and performs stochastic-gradient training on its local samples. The client sends a parameter delta—not its raw data—to the simulated server. This is a single-process simulation and therefore demonstrates the algorithmic boundary, not network privacy. FedAvg weights deltas by local sample count; the other rules combine client deltas coordinate by coordinate.
+At each communication round, every client copies the current CNN and performs stochastic-gradient training on its local samples. The client sends a parameter delta to the simulated server, never its raw data. This is a single-process simulation and therefore demonstrates the algorithmic boundary, not network privacy. FedAvg weights deltas by local sample count; the other rules combine client deltas coordinate by coordinate.
 
 ## Controlled attacks
 
