@@ -4,7 +4,7 @@
 
 A small PyTorch study of how a few malicious clients can influence federated learning on MNIST, and how much server-side aggregation rules help. It compares FedAvg, coordinate-wise median, trimmed mean and an experimental fuzzy client-reliability weighting under label flipping and a corner-trigger backdoor. Everything runs as a single-process simulation.
 
-I developed the project locally from August to December 2025 and committed it to GitHub in July 2026. The multi-seed benchmark was added in August 2026.
+I implemented the client/server simulation, configured the poisoning scenarios and compared the aggregation rules. The [initial implementation](https://github.com/MUmairSarwar/robust-federated-learning-ml-security/commit/c31a9ed) was committed on 21 July 2026. The multi-seed benchmark was added in August and the checked-in tables were refreshed in November 2026.
 
 ![Experiment architecture](docs/architecture.svg)
 
@@ -14,7 +14,7 @@ The defaults below are used by every benchmark configuration in [`experiments/`]
 
 | | |
 |---|---|
-| Data | MNIST via `torchvision`, pixel values in [0, 1], no normalisation |
+| Data | [MNIST](https://docs.pytorch.org/vision/stable/generated/torchvision.datasets.MNIST.html) via `torchvision`, pixel values in [0, 1], no normalisation |
 | Clients | 10, IID split of the 60,000 training images (a label-sorted non-IID split is available but not benchmarked) |
 | Model | CNN with two 3×3 convolution layers (16 and 32 channels) with max pooling, then 64 hidden units and 10 outputs |
 | Training | 10 rounds; each client does 1 local epoch of SGD (lr 0.01, momentum 0.9, batch size 64) and returns its parameter change |
@@ -29,7 +29,7 @@ The defaults below are used by every benchmark configuration in [`experiments/`]
 With client updates $\Delta_1, \dots, \Delta_n$:
 
 - **FedAvg:** $\sum_k \frac{m_k}{\sum_j m_j} \Delta_k$, with $m_k$ the client's sample count.
-- **Coordinate-wise median:** the median of the $n$ values at every parameter.
+- **Coordinate-wise median:** PyTorch's lower median at every parameter when the client count is even. With ten clients, this is the fifth sorted value.
 - **Trimmed mean:** at every parameter, sort the $n$ values, drop $\lfloor n \cdot 0.2 \rfloor$ from each end and average the rest.
 - **Fuzzy reliability (experimental):** for each client, three indicators in $[0, 1]$ are computed from the flattened update: how close its norm is to the median norm and how close it is to the mean update (both through a logistic function of a median/MAD-scaled deviation), and its cosine similarity with the mean update mapped from $[-1, 1]$ to $[0, 1]$. The membership degree $\mu_k$ is their average, the non-membership degree is $\nu_k = 1 - \mu_k$, and the weights are $\mathrm{softmax}(\mu_k - \nu_k)$.
 
@@ -37,7 +37,7 @@ Details are in [`docs/methodology.md`](docs/methodology.md) and [`src/defenses/`
 
 ## Results
 
-Final-round values, mean ± standard deviation over seeds 42, 43 and 44. Per-run values are in [`results/benchmark_runs.csv`](results/benchmark_runs.csv), per-round histories in [`results/benchmarks/tables/`](results/benchmarks/tables/). The runs were produced by the [benchmark workflow](.github/workflows/benchmark.yml) on a GitHub Actions CPU runner ([experiment log](docs/experiment_log.md)).
+Final-round values, mean ± standard deviation over seeds 42, 43 and 44. Per-run values are in [`results/benchmark_runs.csv`](results/benchmark_runs.csv), per-round histories in [`results/benchmarks/tables/`](results/benchmarks/tables/). The runs were produced by the [benchmark workflow](.github/workflows/benchmark.yml) on a GitHub Actions CPU runner. See the [experiment log](docs/experiment_log.md) for the recorded benchmark versions.
 
 | Aggregation | Attack | Clean accuracy | Attack success rate |
 |---|---|---:|---:|
