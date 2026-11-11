@@ -4,7 +4,7 @@
 
 A small PyTorch study of how a few malicious clients can influence federated learning on MNIST, and how much server-side aggregation rules help. It compares FedAvg, coordinate-wise median, trimmed mean and an experimental fuzzy client-reliability weighting under label flipping and a corner-trigger backdoor. Everything runs as a single-process simulation.
 
-I developed the project locally from August to December 2025 and committed it to GitHub in July 2026. The multi-seed benchmark was added in August 2026.
+I worked on this project from July to December 2025: the initial development from July to September, and the experiments and evaluation from October to December.
 
 ![Experiment architecture](docs/architecture.svg)
 
