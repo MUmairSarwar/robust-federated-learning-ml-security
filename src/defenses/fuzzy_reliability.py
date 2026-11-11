@@ -1,8 +1,11 @@
 """Experimental fuzzy client-reliability scoring.
 
-Indicators are robustly scaled. Membership rewards central, directionally aligned
-updates; non-membership rewards norm/distance outliers and negative alignment.
-This heuristic is not a security guarantee.
+Three indicators in [0, 1] are computed per client: a typical update norm, a
+small distance to the mean update (both median/MAD-scaled and passed through a
+logistic function) and cosine alignment with the mean update. Membership is
+their average. Non-membership is currently the average of their complements,
+i.e. exactly 1 - membership, so the uncertainty degree is always zero and the
+score is 2 * membership - 1. This heuristic is not a security guarantee.
 """
 import torch
 import torch.nn.functional as F

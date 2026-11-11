@@ -31,6 +31,8 @@ The experimental degrees are:
 
 Softmax converts reliability scores to nonnegative weights that sum to one. The final update is their weighted mean. These scores are heuristic indicators. They do not identify attackers with certainty and provide no formal security guarantee.
 
+With the current definitions the non-membership degree is exactly `1 - membership`, so the uncertainty degree is always zero and the reliability score equals `2 * membership - 1`, which lies in `[-1, 1]`. The softmax weight of one client can therefore be at most `e^2` (about 7.4) times that of another. The uncertainty column is kept in the diagnostics so that a non-complementary definition of non-membership can be tested later.
+
 ## Reproducibility and outputs
 
 Python, NumPy, and PyTorch random generators are seeded. CUDA deterministic mode is enabled when applicable. Per-round metrics and fuzzy diagnostics are saved as CSV; figures are generated from these measured values. Hardware and dependency versions can still cause small numerical differences.
